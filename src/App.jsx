@@ -1,18 +1,12 @@
-import { useState } from 'react'
+import React from "react";
+import ReactDOM from "react-dom";
+import DashBoard from "./dashboard";
 
 
-// login page
-
-function App() {
-
+const App = () => {
   return (
-    <>
-     
-     
-
-
-    </>
-  )
+    <DashBoard />
+  );
 }
 
-export default App
+export default App;
