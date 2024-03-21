@@ -12,27 +12,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import SignUp from './pages/signup';
-
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { BrowserRouter as Router, Route,Routes, Link } from 'react-router-dom'
+import SignIn from '../App';
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,8 +28,6 @@ export default function SignIn() {
   };
 
   return (
-    <Router>
-      
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -89,8 +72,6 @@ export default function SignIn() {
           </Box>
 
         </Grid>
-
-
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -99,8 +80,8 @@ export default function SignIn() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-            
-                fontStyle: 'normal',
+
+              fontStyle: 'normal',
                 color: '#2756BD',
 
                 span:
@@ -110,40 +91,58 @@ export default function SignIn() {
 
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
-
-            <Typography component="h1" variant="h5" fontWeight={"400"} fontFamily={"Russo One"} fontSize={"30px"} >
-              Sign In<span>.</span>
+           
+           <Typography component="h1" variant="h5" fontWeight={"400"} fontFamily={"Russo One"} fontSize={"30px"} >
+              Sign Up<span>.</span>
             </Typography>
-        
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+   
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
                 <TextField
-                  margin="normal"
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
-                  margin="normal"
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                 />
-                {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
-                <Button
+              </Grid>
+              
+            </Grid>
+            <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -153,54 +152,17 @@ export default function SignIn() {
                   backgroundColor: '#2756BD',
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
-
-                <Grid container 
-                sx={
-                  {
-                    
-                  }
-                }>
-                  {/* <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid> */}
-                  <Grid item>
-                    <Link to="/signup" variant="body2" style={{textDecoration: 'none',
-                  fontSize: '14px',
-                  fontFamily: 'helvetica',
-                  fontWeight: '400',
-                  color: '#2756BD',
-                  
-                  
-                  }}
-                    >
-                      Don't have an account?{" Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
-                {/* <Copyright sx={{ mt: 5 }} /> */}
-              </Box>
               
-              
-            
-
-
+            </Box>
+           
           </Box>
-
-
-
+          
         </Grid>
       </Grid>
-
+      
     </ThemeProvider>
-
-    <Routes>
-      <Route path="/signup" element={<SignUp/>} />
-      </Routes>
-    </Router>
 
 
 
