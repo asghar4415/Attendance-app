@@ -10,6 +10,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import AppAppBar from '../components/navbar';
 import getLPTheme from '../components/getLPTheme';
+import './admin_dash.css';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (

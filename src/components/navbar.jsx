@@ -80,19 +80,39 @@ function AppAppBar({ mode, toggleColorMode }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                ml: '-18px',
+                ml: '10px',
                 px: 0,
               }}
 
             >
-              <img
+              {/* <img
                 src={
                   'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
                 }
                 style={logoStyle}
                 alt="logo of sitemark"
-              />
-<Button
+              /> */}
+              <h3
+              // style={logoStyle}
+              style={
+                {
+                  fontFamily: 'Russo One',
+                  fontWeight: '400',
+                  fontStyle: 'normal',
+                  fontSize: '25px',
+                  color: '#2756BD',
+                }
+              }
+              >Haazri
+              <span
+              style={
+                {
+                  color: 'green',
+                }
+              
+              }>
+                .</span></h3>
+              <Button
                 variant="text"
                 color="primary"
                 aria-label="menu"
@@ -101,14 +121,14 @@ function AppAppBar({ mode, toggleColorMode }) {
               >
                 <MenuIcon />
               </Button>
-             
+
             </Box>
-            
+
             <Box sx={{ display: { sm: '', md: 'none' } }}>
-             
+
               <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
                 <Box
-                 sx={{
+                  sx={{
                     minWidth: '25vw',
                     p: 2,
                     backgroundColor: 'background.paper',
@@ -117,7 +137,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                       minWidth: '65vw'
                     }
                   }}
-               
+
                 >
                   <Box
                     sx={{
@@ -128,40 +148,31 @@ function AppAppBar({ mode, toggleColorMode }) {
                     }}
                   >
                   </Box>
+                  <MenuItem onClick={() => scrollToSection('home')}>Home</MenuItem>
                   <MenuItem onClick={() => scrollToSection('features')}>
-                    Features
+                    Add students
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('testimonials')}>
-                    Testimonials
+                    Remove students
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('highlights')}>
-                    Highlights
+                    List Students
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('pricing')}>
-                    Pricing
+                    List Teachers
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                  {/* <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem> */}
                   <Divider />
+
                   <MenuItem>
                     <Button
-                      color="primary"
-                      variant="contained"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
-                    >
-                      Sign up
-                    </Button>
-                  </MenuItem>
-                  <MenuItem>
-                    <Button
-                      color="primary"
                       variant="outlined"
                       component="a"
                       href="/Ap"
                       target="_blank"
-                      sx={{ width: '100%' }}
+                      sx={{ width: '100%', 
+                    color: '#2756BD',
+                    }}
                     >
                       Log out
                     </Button>
