@@ -108,8 +108,6 @@ export default function Add_Student() {
                 flexDirection: "column",
                 width: "100%",
                 height: "100%",
-                // border: '1px solid #e0e0e0',
-                // marginTop: "-2rem",
                 }}
           
         >
