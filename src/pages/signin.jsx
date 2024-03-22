@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
@@ -24,13 +24,21 @@ import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react
 import SignUp from './signup';
 import { ToastAlert } from "../utility/toast";
 
-import { getDatabase, ref, set } from "firebase/database";
-import { app } from "../firebase";
 
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+var uid= window.localStorage.getItem("uid");
+
+useEffect(() => {
+    if (uid !== null) {
+        navigate("/dashboard");
+    }
+});
+
+
 
     const navigate = useNavigate();
 
@@ -49,7 +57,10 @@ export default function SignIn() {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                ToastAlert("user login", "success");
+                ToastAlert("User loggedin successfully", "login-success");
+
+                window.localStorage.setItem("uid", user.uid);
+                console.log(user.uid);
 
                 navigate("/dashboard");
                 // ...
@@ -58,6 +69,9 @@ export default function SignIn() {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 ToastAlert("Invalid Credentials", "error");
+
+                setEmail("");
+                setPassword("");
 
             });
     };
@@ -187,7 +201,7 @@ export default function SignIn() {
                                     }
                                 }>
 
-                                <Grid item>
+                                {/* <Grid item>
                                     <Link to="/signup" variant="body2" style={{
                                         textDecoration: 'none',
                                         fontSize: '14px',
@@ -200,7 +214,7 @@ export default function SignIn() {
 
                                         Don't have an account?{" Sign Up"}
                                     </Link>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                             {/* <Copyright sx={{ mt: 5 }} /> */}
                         </Box>

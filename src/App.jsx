@@ -6,6 +6,7 @@ import DashBoard from './pages/admin_dashboard';
 
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, ToastContainer } from "react-toastify";
+import DashBoard_Home from './pages/admin_dashboard';
 
 
 
@@ -20,7 +21,10 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/dashboard" element={<DashBoard_Home />} />
+        <Route path="/dashboard" element={<DashBoard_Home />} />
+        <Route path="/dashboard/add_student" element={<DashBoard_Home />} />
+
       </Routes>
     </Router>
 

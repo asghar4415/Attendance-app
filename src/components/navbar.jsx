@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import ToggleColorMode from '../components/toggleColorMode';
+import { useNavigate } from 'react-router-dom';
 
 const logoStyle = {
   width: '140px',
@@ -20,25 +20,16 @@ const logoStyle = {
 };
 
 function AppAppBar({ mode, toggleColorMode }) {
+
+
+  const Navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
-  const scrollToSection = (sectionId) => {
-    const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
-    if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: 'smooth' });
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth',
-      });
-      setOpen(false);
-    }
-  };
+  
 
   return (
     <div>
@@ -148,17 +139,28 @@ function AppAppBar({ mode, toggleColorMode }) {
                     }}
                   >
                   </Box>
-                  <MenuItem onClick={() => scrollToSection('home')}>Home</MenuItem>
-                  <MenuItem onClick={() => scrollToSection('features')}>
+                  <MenuItem onClick={() => 
+                  Navigate('/dashboard')
+                }>Home</MenuItem>
+
+                  <MenuItem onClick={() => 
+                  Navigate('/dashboard/add_student')
+                }>
                     Add students
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('testimonials')}>
+                  <MenuItem onClick={() =>
+                  Navigate('/admin_dashboard')
+                }>
                     Remove students
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('highlights')}>
+                  <MenuItem onClick={() =>
+                  Navigate('/admin_dashboard')
+                }>
                     List Students
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('pricing')}>
+                  <MenuItem onClick={() => 
+                  Navigate('/admin_dashboard')
+                }>
                     List Teachers
                   </MenuItem>
                   {/* <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem> */}
@@ -173,6 +175,11 @@ function AppAppBar({ mode, toggleColorMode }) {
                       sx={{ width: '100%', 
                     color: '#2756BD',
                     }}
+                    onClick={() => {
+                      window.localStorage.removeItem("uid");
+                      window.location.href = "/";
+                    }
+                    }
                     >
                       Log out
                     </Button>
@@ -188,8 +195,8 @@ function AppAppBar({ mode, toggleColorMode }) {
 }
 
 AppAppBar.propTypes = {
-  mode: PropTypes.oneOf(['dark', 'light']).isRequired,
-  toggleColorMode: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['dark', 'light']),
+  toggleColorMode: PropTypes.func,
 };
 
 export default AppAppBar;

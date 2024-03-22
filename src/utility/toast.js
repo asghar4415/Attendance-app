@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const ToastAlert = (message, type) => {
     switch (type) {
-        case "success":
-            return toast.success("User successfully signup", {
+        case "login-success":
+            return toast.success(message, {
                 position: "bottom-left",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -16,6 +16,7 @@ export const ToastAlert = (message, type) => {
                 theme: "light",
                 transition: Bounce,
             });
+            
         case "error":
             return toast.error(message, {
                 position: "bottom-left",

@@ -54,7 +54,7 @@ export default function SignUp() {
         const admin = userCredential.user;
         console.log(admin, "admin");
 
-        ToastAlert("Successfully signup", "success");
+        ToastAlert("User signedup successfully", "signup-success");
         navigate("/");
       })
       .catch((error) => {
