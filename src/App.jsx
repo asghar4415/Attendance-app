@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import SignUp from './pages/signup';
 import SignIn from './pages/signin';
-import DashBoard from './pages/admin_dashboard';
+import Add_Student from './pages/add_students';
 
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, ToastContainer } from "react-toastify";
@@ -23,7 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<DashBoard_Home />} />
         <Route path="/dashboard" element={<DashBoard_Home />} />
-        <Route path="/dashboard/add_student" element={<DashBoard_Home />} />
+        <Route path="/dashboard/add_student" element={<Add_Student />} />
 
       </Routes>
     </Router>
