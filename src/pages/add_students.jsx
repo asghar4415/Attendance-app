@@ -118,21 +118,26 @@ export default function Add_Student() {
                 flexDirection: "column",
                 width: "80%",
                 height: "100%",
-                // border: '1px solid #e0e0e0',
-                // marginTop: "-2rem",
-                }}
+                // border: "1px solid #e0e0e0",
+             
+              }}
+                
           >
             <div className="container1-menu">
               <TabContext value={value}>
                 <Box
                   sx={{
-                    borderBottom: 1,
+                    // borderBottom: 2,
                     borderColor: "divider",
+                    borderRadius: "10px 10px 0px 0px",
                     display: "flex",
                     flexDirection: "column",
                     width: "100%",
                     padding: "10px",
                     paddingBottom: "0px",
+                    backgroundColor: "#ececec",
+                    // borderBottomColor: "#2756BD",
+                    
                   }}
                 >
                   <TabList onChange={handleChange} aria-label="">
@@ -162,9 +167,10 @@ export default function Add_Student() {
                         fontWeight: "400",
                         fontStyle: "normal",
                         color: "#2756BD",
-
-                        "@media (max-width: 450px)": {
-                          fontSize: "1rem",
+                        sx: {
+                          '@media (max-width: 450px)': {
+                            fontSize: '1rem',
+                          },
                         },
                       }}
                     >
@@ -178,6 +184,7 @@ export default function Add_Student() {
                           label="First Name"
                           variant="outlined"
                           className="firstname"
+                         
                         />
                         <TextField
                           id="outlined-basic"

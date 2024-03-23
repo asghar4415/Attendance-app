@@ -95,17 +95,23 @@ useEffect(() => {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginTop: '10%',
+                            marginTop: '5%',
 
                             h1: {
                                 fontFamily: 'Russo One, sans-serif',
                                 fontWeight: '400',
                                 fontStyle: 'normal',
-                                fontSize: '70px',
+                                fontSize: '60px',
                                 color: '#2756BD',
                             },
                             span: {
                                 color: 'green',
+                            },
+                            img:
+                            {
+                                marginTop: '-2rem',
+                                width: '17rem',
+                                height: '20rem',
                             },
 
                             '@media (max-width: 600px)':
@@ -116,8 +122,10 @@ useEffect(() => {
 
 
                     >
+
                         <h1>Haazri<span>.</span></h1>
                         <p></p>
+                        <img src="/img/png-transparent-education-brain-teacher-creative-text-people-cerebrum-thumbnail-removebg-preview.png" alt="" />
 
                     </Box>
 
@@ -140,12 +148,55 @@ useEffect(() => {
                             {
                                 color: 'green',
                             },
+                            // '.signin-logo':
+                            // {
+                            //     display: 'none',
+                            // },
+
+                            '@media (max-width: 450px)':
+                            {
+                                'signin-logo':
+                                {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+
+                                },
+                                '.signin-logo-img':
+                                {
+                                    width: '7rem',
+                                    height: '8rem',
+                                }
+                            },
+                            '@media (min-width: 600px)':
+                            {
+                                'signin-logo':
+                                {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    display: 'none',
+
+                                },
+                                '.signin-logo-img':
+                                {
+                                  display: 'none',
+                                }
+
+
+                            }
+
+                            
+                          
+
 
                         }}
                     >
-                        {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
+                        <div className="signin-logo">
+                            <img className="signin-logo-img" src="/public/img/png-transparent-education-brain-teacher-creative-text-people-cerebrum-thumbnail-removebg-preview.png" alt="" />
+                        </div>
 
                         <Typography component="h1" variant="h5" fontWeight={"400"} fontFamily={"Russo One"} fontSize={"30px"} >
                             Sign In<span>.</span>
@@ -176,10 +227,7 @@ useEffect(() => {
                             />
                            
 
-                            {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
+                            
                             <Button
                                 type="submit"
                                 fullWidth
@@ -192,31 +240,9 @@ useEffect(() => {
                                 }}
                             >
                                 Sign In
-                            </Button>
+                            </Button>   
 
-                            <Grid container
-                                sx={
-                                    {
-
-                                    }
-                                }>
-
-                                {/* <Grid item>
-                                    <Link to="/signup" variant="body2" style={{
-                                        textDecoration: 'none',
-                                        fontSize: '14px',
-                                        fontFamily: 'helvetica',
-                                        fontWeight: '400',
-                                        color: '#2756BD',
-
-                                    }}
-                                    >
-
-                                        Don't have an account?{" Sign Up"}
-                                    </Link>
-                                </Grid> */}
-                            </Grid>
-                            {/* <Copyright sx={{ mt: 5 }} /> */}
+                            
                         </Box>
 
                     </Box>
