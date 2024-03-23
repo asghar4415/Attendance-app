@@ -195,7 +195,7 @@ useEffect(() => {
                         }}
                     >
                         <div className="signin-logo">
-                            <img className="signin-logo-img" src="/public/img/png-transparent-education-brain-teacher-creative-text-people-cerebrum-thumbnail-removebg-preview.png" alt="" />
+                            <img className="signin-logo-img" src="/img/png-transparent-education-brain-teacher-creative-text-people-cerebrum-thumbnail-removebg-preview.png" alt="" />
                         </div>
 
                         <Typography component="h1" variant="h5" fontWeight={"400"} fontFamily={"Russo One"} fontSize={"30px"} >
