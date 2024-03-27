@@ -40,7 +40,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import "../components/add_student.css";
+import "../components/add_users.css";
 import { ToastAlert } from "../utility/toast";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
@@ -79,7 +79,18 @@ ToggleCustomTheme.propTypes = {
   toggleCustomTheme: PropTypes.func.isRequired,
 };
 
-export default function Add_Student() {
+export default function Add_User() {
+
+  useEffect(() => {
+
+    if (uid === null) {
+      window.location.href = "/";
+    }
+
+
+  });
+
+  
   var uid = window.localStorage.getItem("uid");
 
   const [firstName, setFirstName] = useState("");
@@ -145,13 +156,97 @@ export default function Add_Student() {
       await setDoc(doc(db, "users", userID), obj);
       ToastAlert("Student added successfully!", "success");
 
-      setFirstName(" ");
+      setFirstName("");
+      setLastName("");
+      setCnic("");
+      setStudentId("");
+      setBatch("");
+      setPhone("");
+      setEmail("");
+      setAddress("");
+      setStdImage(null);
+      setPassword("");
+
     
 
     } catch (error) {
       ToastAlert(error.code || error.message, "error");
     }
   };
+
+
+  //adding teacher
+
+  const [teacherFirstName, setTeacherFirstName] = useState("");
+  const[teacherLastName, setTeacherLastName] = useState("");
+  const [teacherCnic, setTeacherCnic] = useState("");
+  const [teacherPhone, setTeacherPhone] = useState("");
+  const [teacherEmail, setTeacherEmail] = useState("");
+  const [teacherAddress, setTeacherAddress] = useState("");
+  const [teacherImage, setTeacherImage] = useState("");
+  const [teacherPassword, setTeacherPassword] = useState("");
+  const [teacherCourse,  setTeacherCourse] = useState("");
+
+  var teacherFullname = teacherFirstName + " " + teacherLastName;
+
+  const adding_teacher = async () => {
+    event.preventDefault();
+
+    try{
+      if (
+        !teacherFullname ||
+        !teacherCnic ||
+        !teacherPhone ||
+        !teacherEmail ||
+        !teacherAddress ||
+        !teacherCourse ||
+        !teacherPassword 
+      ) {
+        ToastAlert("required fields are missing", "error");
+        return;
+      }
+
+      //AUTH
+      const teacherData = await createUserWithEmailAndPassword(
+        auth,
+        teacherEmail,
+        teacherPassword
+      );
+      const userID = teacherData.user.uid;
+
+      // Image
+      const imageURL = await uploadFile(teacherImage);
+
+      const obj = {
+        email: teacherEmail,
+        name: teacherFullname,
+        cnic: teacherCnic,
+        phone: teacherPhone,
+        address: teacherAddress,
+        course: teacherCourse,
+        type: "teacher",
+        imageURL,
+        isActive: true,
+      };
+
+      await setDoc(doc(db, "users", userID), obj);
+      ToastAlert("Teacher added successfully!", "success");
+
+      setTeacherFirstName("");
+      setTeacherLastName("");
+      setTeacherCnic("");
+      setTeacherPhone("");
+      setTeacherEmail("");
+      setTeacherAddress("");
+      setTeacherImage("");
+      setTeacherPassword("");
+      setTeacherCourse("");
+    }
+    catch (error) {
+      ToastAlert(error.code || error.message, "error");
+    }
+  }
+
 
 
   const [value, setValue] = React.useState("1");
@@ -375,17 +470,7 @@ export default function Add_Student() {
                   </div>
                 </TabPanel>
                 <TabPanel value="2">
-                  <div
-                    className="add_teacher"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                      // border: '1px solid #e0e0e0',
-                      height: "100%",
-                      marginTop: "-2rem",
-                    }}
-                  >
+                <div className="add_student">
                     <h1
                       className="h2"
                       style={{
@@ -394,15 +479,130 @@ export default function Add_Student() {
                         fontWeight: "400",
                         fontStyle: "normal",
                         color: "#2756BD",
-
-                        "@media (max-width: 450px)": {
-                          fontSize: "1rem",
+                        sx: {
+                          "@media (max-width: 450px)": {
+                            fontSize: "1rem",
+                          },
                         },
                       }}
                     >
                       Add Teacher
                     </h1>
+
+                    <div className="add_student_form">
+                      <div className="form-row-1">
+                        <TextField
+                          id="outlined-basic"
+                          label="First Name"
+                          variant="outlined"
+                          className="firstname1"
+                          onChange={(e) => {
+
+                            setTeacherFirstName(e.target.value);
+
+                          }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Last Name"
+                          variant="outlined"
+                          className="lastname1"
+                          onChange={(e) => {
+
+                            setTeacherLastName(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div className="form-row-2">
+                        <TextField
+                          id="outlined-basic"
+                          label="CNIC number"
+                          variant="outlined"
+                          className="cnic1"
+                          onChange={(e) => {
+                            setTeacherCnic(e.target.value);
+                          }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Phone number"
+                          variant="outlined"
+                          className="phone1"
+                          onChange={(e) => {
+                            setTeacherPhone(e.target.value);
+                          }}
+                        />
+
+                        <TextField
+                          id="outlined-basic"
+                          label="Course"
+                          variant="outlined"
+                          className="course1"
+                          onChange={(e) => {
+                            setTeacherCourse(e.target.value);
+                          }}
+                        />
+                        
+                    
+                      
+                      </div>
+                      <div className="form-row-3">
+                        <TextField
+                          id="outlined-basic"
+                          label="Email"
+                          variant="outlined"
+                          className="email1"
+                          onChange={(e) => {
+
+                            setTeacherEmail(e.target.value);
+                          }}
+                        />
+                        <TextField
+                        id= "outlined-basic"
+                        label="Password"
+                        variant="outlined"
+                        className="password1"
+
+                        onChange={(e) => {
+
+                          setTeacherPassword(e.target.value);
+                        }}
+                        />
+                      </div>
+
+                      <div className="form-row-5">
+                        <TextField
+                          id="outlined-basic"
+                          label="Address"
+                          variant="outlined"
+                          className="address1"
+                          onChange={(e) => {
+
+                            setTeacherAddress(e.target.value);
+                            
+                          }}
+                        />
+                      </div>
+                      <div className="form-row-4">
+                        <Button
+                          variant="contained"
+                          component="label"
+                          className="image_upload1"
+                          onChange={(e) => {
+
+                            setTeacherImage(e.target.files[0]);
+                          }}
+                        >
+                          Upload image
+                          <input type="file" hidden />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="add_student_button">
+                      <Button variant="outlined" onClick={adding_teacher}>Add Teacher</Button>
+                    </div>
                   </div>
+                
                 </TabPanel>
               </TabContext>
             </div>
@@ -417,3 +617,4 @@ export default function Add_Student() {
     </ThemeProvider>
   );
 }
+

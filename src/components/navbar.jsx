@@ -138,14 +138,14 @@ function AppAppBar({ mode, toggleColorMode }) {
                 }>Home</MenuItem>
 
                   <MenuItem onClick={() => 
-                  Navigate('/dashboard/add_student')
+                  Navigate('/dashboard/add-user')
                 }>
-                    Add students
+                    Add students/teachers
                   </MenuItem>
                   <MenuItem onClick={() =>
                   Navigate('/admin_dashboard')
                 }>
-                    Remove students
+                    Remove students/teachers
                   </MenuItem>
                   <MenuItem onClick={() =>
                   Navigate('/admin_dashboard')

@@ -3,7 +3,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 
 import { Divider, IconButton, InputAdornment } from "@mui/material";
-import { signInWithEmailAndPassword, auth } from "../firebase";
+import { signInWithEmailAndPassword,
+   auth,
+    db,
+    getDoc,
+    doc,
+
+
+ } from "../firebase";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -15,11 +22,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  BrowserRouter as Router,
-
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import SignUp from "./signup";
 import { ToastAlert } from "../utility/toast";
 
@@ -28,34 +31,44 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   var uid = window.localStorage.getItem("uid");
 
-  useEffect(() => {
-    if (uid !== null) {
-      navigate("/dashboard");
-    }
-  });
+  // useEffect(() => {
+  //   if (uid !== null) {
+  //     navigate("/dashboard");
+  //   }
+  // });
 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) {
       console.log("required field are missing");
       return;
     }
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
+        const userID = user.uid;
+
+        const userData = await getDoc(doc(db, "users", userID));
+        // console.log(userData.data(), "userData");
+
+        localStorage.setItem("uid", userID);
+        // localStorage.setItem("user", JSON.stringify(userData.data()));
+
+        // console.log("User type", userData.data().type);
+
         ToastAlert("User loggedin successfully", "success");
-
-        window.localStorage.setItem("uid", user.uid);
-        console.log(user.uid);
-
+        // if (userData.data().type == "student") {
+        //   navigate("/studentportal");
+        // } else if (userData.data().type == "teacher") {
+        //   navigate("/teacherportal");
+        // } 
         navigate("/dashboard");
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -221,4 +234,4 @@ export default function SignIn() {
       </Grid>
     </ThemeProvider>
   );
-}
+};

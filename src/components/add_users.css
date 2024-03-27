@@ -61,6 +61,7 @@ gap: 1rem;
 {
     width: 30%;
 }
+
  
 .form-row-3
 {
@@ -88,24 +89,17 @@ gap: 1rem;
     width: 100%;
 
 }
- .address
+ .address, .address1
 {
     width: 90%;
     margin: 1rem;
 }
 
-.firstname
+.firstname, .firstname1, .cnic1, .phone1, .lastname, .lastname1, .email1, .password1, .course1
 {
     width: 43%;
-    margin: 1rem;
 }
-.lastname
-{
-    width: 43%;
-    margin: 1rem;
-}
-
-.form-row-4 .image_upload
+.form-row-4 .image_upload, .form-row-4 .image_upload1
 {
     background-color:#3266d6;
     color: white;
@@ -214,26 +208,15 @@ gap: 1rem;
 
     }
 
-    .form-row-4 .image_upload
+    .form-row-4 .image_upload, .form-row-4 .image_upload1
     {
         width: 70%;
     }
 
-    .firstname
+    .firstname, .lastname, .firstname1, .lastname1, .cnic, .cnic1, .phone, .phone1, .email, .email1, .password, .password1, .address, .address1, .studentid, .batch, .course1
     {
         width: 90%;
     }
-
-    .lastname
-    {
-        width: 90%;
-    }
-
-     .studentid, .cnic, .batch, .phone, .email, .password, .address
-    {
-        width: 90%;
-    }
-
     
 
     .add_student_button
