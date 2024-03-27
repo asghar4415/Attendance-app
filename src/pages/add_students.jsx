@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import {
+ doc,
+  setDoc,
+  createUserWithEmailAndPassword,
+  auth,
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  db,
+
+} from "../firebase";
+import { uploadFile } from "../utility/uploadimage";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -28,6 +41,7 @@ import {
 } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import "../components/add_student.css";
+import { ToastAlert } from "../utility/toast";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -68,16 +82,81 @@ ToggleCustomTheme.propTypes = {
 export default function Add_Student() {
   var uid = window.localStorage.getItem("uid");
 
-  useEffect(() => {
-    if (uid === null) {
-      window.location.href = "/";
+  const [firstName, setFirstName] = useState("");
+  const[lastName, setLastName] = useState("");
+  const [cnic, setCnic] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [batch, setBatch] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [stdImage, setStdImage] = useState(null);
+  const [password, setPassword] = useState("");
+
+
+
+  var fullname = firstName + " " + lastName;
+
+  const adding_student = async () => {
+    event.preventDefault();
+    try {
+      if (
+        !fullname ||
+        !cnic ||
+        !studentId ||
+        !batch ||
+        !phone ||
+        !email ||
+        !address ||
+        !password ||
+        !stdImage
+      ) {
+        ToastAlert("required fields are missing", "error");
+        return;
+      }
+
+      //AUTH
+      const stdData = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const userID = stdData.user.uid;
+
+      // Image
+      const imageURL = await uploadFile(stdImage);
+
+      const obj = {
+        email,
+        name: fullname,
+        cnic,
+        studentId,
+        batch,
+        phone,
+        address,
+        type: "student",
+        imageURL,
+        isActive: true,
+      };
+
+
+
+
+      await setDoc(doc(db, "users", userID), obj);
+      ToastAlert("Student added successfully!", "success");
+
+      setFirstName(" ");
+    
+
+    } catch (error) {
+      ToastAlert(error.code || error.message, "error");
     }
-  });
-  console.log("user id: ", uid);
+  };
 
-  const [value, setValue] = useState("1");
 
-  const handleChange = (event, newValue) => {
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = async(event, newValue) => {
     setValue(newValue);
   };
 
@@ -103,31 +182,27 @@ export default function Add_Student() {
         <AppAppBar />
         <div
           className="dash_home"
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                height: "100%",
-                }}
-          
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+          }}
         >
-          <div className="container-1"
-          
+          <div
+            className="container-1"
             style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "80%",
-                height: "100%",
-                // border: "1px solid #e0e0e0",
-             
-              }}
-                
+              display: "flex",
+              flexDirection: "column",
+              width: "80%",
+              height: "100%",
+              // border: "1px solid #e0e0e0",
+            }}
           >
             <div className="container1-menu">
-              <TabContext value={value}>
+              <TabContext value={ value }>
                 <Box
                   sx={{
-                    // borderBottom: 2,
                     borderColor: "divider",
                     borderRadius: "10px 10px 0px 0px",
                     display: "flex",
@@ -137,7 +212,6 @@ export default function Add_Student() {
                     paddingBottom: "0px",
                     backgroundColor: "#ececec",
                     // borderBottomColor: "#2756BD",
-                    
                   }}
                 >
                   <TabList onChange={handleChange} aria-label="">
@@ -168,8 +242,8 @@ export default function Add_Student() {
                         fontStyle: "normal",
                         color: "#2756BD",
                         sx: {
-                          '@media (max-width: 450px)': {
-                            fontSize: '1rem',
+                          "@media (max-width: 450px)": {
+                            fontSize: "1rem",
                           },
                         },
                       }}
@@ -184,13 +258,20 @@ export default function Add_Student() {
                           label="First Name"
                           variant="outlined"
                           className="firstname"
-                         
+                          onChange={(e) => {
+
+                            setFirstName(e.target.value);
+
+                          }}
                         />
                         <TextField
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
                           className="lastname"
+                          onChange={(e) => {
+                            setLastName(e.target.value);
+                          }}
                         />
                       </div>
                       <div className="form-row-2">
@@ -199,42 +280,67 @@ export default function Add_Student() {
                           label="CNIC number"
                           variant="outlined"
                           className="cnic"
+                          onChange={(e) => {
+                            setCnic(e.target.value);
+                          }}
                         />
-                        <TextField
+                        {/* <TextField
                           id="outlined-basic"
                           variant="outlined"
-                          type="date"
+                          type=""
+
                           className="dob"
-                        />
+                          label="Date of Birth"
+
+                        /> */}
 
                         <TextField
                           id="outlined-basic"
                           label="Student ID"
                           variant="outlined"
                           className="studentid"
+                          onChange={(e) => {
+                            setStudentId(e.target.value);
+                          }}
                         />
-                      </div>
-                      <div className="form-row-3">
                         <TextField
                           id="outlined-basic"
                           label="Batch"
                           variant="outlined"
                           className="batch"
+                          onChange={(e) => {
+                            setBatch(e.target.value);
+                          }}
                         />
-
+                      </div>
+                      <div className="form-row-3">
                         <TextField
                           id="outlined-basic"
                           label="Phone number"
                           variant="outlined"
                           className="phone"
+                          onChange={(e) => {
+                            setPhone(e.target.value);
+                          }}
                         />
-                      </div>
-                      <div className="form-row-4">
                         <TextField
                           id="outlined-basic"
                           label="Email"
                           variant="outlined"
                           className="email"
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                        <TextField
+                        id= "outlined-basic"
+                        label="Password"
+                        variant="outlined"
+                        className="password"
+
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
                         />
                       </div>
 
@@ -244,11 +350,27 @@ export default function Add_Student() {
                           label="Address"
                           variant="outlined"
                           className="address"
+                          onChange={(e) => {
+                            setAddress(e.target.value);
+                          }}
                         />
+                      </div>
+                      <div className="form-row-4">
+                        <Button
+                          variant="contained"
+                          component="label"
+                          className="image_upload"
+                          onChange={(e) => {
+                            setStdImage(e.target.files[0]);
+                          }}
+                        >
+                          Upload image
+                          <input type="file" hidden />
+                        </Button>
                       </div>
                     </div>
                     <div className="add_student_button">
-                      <Button variant="outlined">Add Student</Button>
+                      <Button variant="outlined" onClick={adding_student}>Add Student</Button>
                     </div>
                   </div>
                 </TabPanel>

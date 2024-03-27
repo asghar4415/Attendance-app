@@ -22,8 +22,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { ToastAlert } from "../utility/toast";
@@ -54,7 +53,7 @@ export default function SignUp() {
         const admin = userCredential.user;
         console.log(admin, "admin");
 
-        ToastAlert("User signedup successfully", "signup-success");
+        ToastAlert("User signedup successfully", "success");
         navigate("/");
       })
       .catch((error) => {

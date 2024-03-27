@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const ToastAlert = (message, type) => {
     switch (type) {
-        case "login-success":
+        case "success":
             return toast.success(message, {
                 position: "bottom-left",
                 autoClose: 5000,
